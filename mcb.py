@@ -15,8 +15,11 @@ def main():
         pass_field = driver.find_element(By.ID, "pass")
         pass_field.send_keys("NagyonTitkosJelszo123")
         print("Jelszo beirva!")
+        
+        login_button = driver.find_element(By.ID, "loginbutton")
+        print("Bejelentkezes gomb megtalalva!")
     except:
-        print("Hiba a mezok kitoltesenel.")
+        print("Hiba a mezok vagy a gomb keresesekor.")
         
     time.sleep(5)
     
