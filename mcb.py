@@ -9,12 +9,14 @@ def main():
     
     try:
         email_field = driver.find_element(By.ID, "email")
-        print("Email mezo megvan!")
+        email_field.send_keys("teszt.bercel@gmail.com")
+        print("Email beirva!")
         
         pass_field = driver.find_element(By.ID, "pass")
-        print("Jelszo mezo is megvan!")
+        pass_field.send_keys("NagyonTitkosJelszo123")
+        print("Jelszo beirva!")
     except:
-        print("Valamelyik beviteli mezo hianyzik.")
+        print("Hiba a mezok kitoltesenel.")
         
     time.sleep(5)
     
