@@ -26,11 +26,12 @@ def main():
         print("Jelszo beirva!")
         
         login_button = driver.find_element(By.ID, "loginbutton")
-        print("Bejelentkezes gomb megtalalva!")
+        login_button.click()
+        print("Bejelentkezes gombra kattintva!")
     except:
         print("Hiba a mezok vagy a gomb keresesekor.")
         
-    time.sleep(5)
+    time.sleep(10)
     
     driver.quit()
     print("Bongeszo bezarva.")
