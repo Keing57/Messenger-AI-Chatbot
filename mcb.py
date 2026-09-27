@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 def main():
     print("Bongeszo inditasa...")
     driver = webdriver.Chrome()
+    driver.maximize_window()
     driver.get("https://www.messenger.com/")
     
     try:
