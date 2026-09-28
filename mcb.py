@@ -2,6 +2,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+EMAIL = "teszt.bercel@gmail.com"
+PASSWORD = "NagyonTitkosJelszo123"
+
 def main():
     print("Bongeszo inditasa...")
     driver = webdriver.Chrome()
@@ -18,11 +21,11 @@ def main():
 
     try:
         email_field = driver.find_element(By.ID, "email")
-        email_field.send_keys("teszt.bercel@gmail.com")
+        email_field.send_keys(EMAIL)
         print("Email beirva!")
         
         pass_field = driver.find_element(By.ID, "pass")
-        pass_field.send_keys("NagyonTitkosJelszo123")
+        pass_field.send_keys(PASSWORD)
         print("Jelszo beirva!")
         
         login_button = driver.find_element(By.ID, "loginbutton")
