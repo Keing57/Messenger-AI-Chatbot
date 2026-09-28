@@ -1,6 +1,8 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 EMAIL = "teszt.bercel@gmail.com"
 PASSWORD = "NagyonTitkosJelszo123"
@@ -12,10 +14,11 @@ def main():
     driver.get("https://www.messenger.com/")
     
     try:
-        cookie_button = driver.find_element(By.XPATH, "//button[contains(text(), 'összes elfogadása')]")
+        cookie_button = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'összes elfogadása')]"))
+        )
         cookie_button.click()
         print("Sutik elfogadva!")
-        time.sleep(2)
     except:
         print("Nincs suti ablak vagy nem talalhato.")
 
