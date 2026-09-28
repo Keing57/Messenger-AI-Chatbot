@@ -23,15 +23,21 @@ def main():
         print("Nincs suti ablak vagy nem talalhato.")
 
     try:
-        email_field = driver.find_element(By.ID, "email")
+        email_field = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.ID, "email"))
+        )
         email_field.send_keys(EMAIL)
         print("Email beirva!")
         
-        pass_field = driver.find_element(By.ID, "pass")
+        pass_field = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.ID, "pass"))
+        )
         pass_field.send_keys(PASSWORD)
         print("Jelszo beirva!")
         
-        login_button = driver.find_element(By.ID, "loginbutton")
+        login_button = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.ID, "loginbutton"))
+        )
         login_button.click()
         print("Bejelentkezes gombra kattintva!")
     except:
