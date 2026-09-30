@@ -7,12 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 EMAIL = "teszt.bercel@gmail.com"
 PASSWORD = "NagyonTitkosJelszo123"
 
-def main():
-    print("Bongeszo inditasa...")
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    driver.get("https://www.messenger.com/")
-    
+def login(driver):
     try:
         cookie_button = WebDriverWait(driver, 5).until(
             EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'összes elfogadása')]"))
@@ -42,6 +37,14 @@ def main():
         print("Bejelentkezes gombra kattintva!")
     except:
         print("Hiba a mezok vagy a gomb keresesekor.")
+
+def main():
+    print("Bongeszo inditasa...")
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get("https://www.messenger.com/")
+    
+    login(driver)
         
     time.sleep(10)
     
