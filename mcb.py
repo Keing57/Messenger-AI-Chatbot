@@ -38,6 +38,16 @@ def login(driver):
     except:
         print("Hiba a mezok vagy a gomb keresesekor.")
 
+def verify_login(driver):
+    print("Bejelentkezes ellenorzese...")
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.url_changes("https://www.messenger.com/")
+        )
+        print("Sikeres tovabblepes a bejelentkezo oldalrol!")
+    except:
+        print("Nem valtozott az URL, valoszinuleg hibasak a belepesi adatok (teszt).")
+
 def main():
     print("Bongeszo inditasa...")
     driver = webdriver.Chrome()
@@ -45,8 +55,7 @@ def main():
     driver.get("https://www.messenger.com/")
     
     login(driver)
-        
-    time.sleep(10)
+    verify_login(driver)
     
     driver.quit()
     print("Bongeszo bezarva.")
