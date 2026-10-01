@@ -7,58 +7,64 @@ from selenium.webdriver.support import expected_conditions as EC
 EMAIL = "teszt.bercel@gmail.com"
 PASSWORD = "NagyonTitkosJelszo123"
 
-def login(driver):
-    try:
-        cookie_button = WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'összes elfogadása')]"))
-        )
-        cookie_button.click()
-        print("Sutik elfogadva!")
-    except:
-        print("Nincs suti ablak vagy nem talalhato.")
+class MessengerBot:
+    def __init__(self):
+        print("Bongeszo inditasa...")
+        self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
 
-    try:
-        email_field = WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.ID, "email"))
-        )
-        email_field.send_keys(EMAIL)
-        print("Email beirva!")
+    def login(self):
+        self.driver.get("https://www.messenger.com/")
         
-        pass_field = WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.ID, "pass"))
-        )
-        pass_field.send_keys(PASSWORD)
-        print("Jelszo beirva!")
-        
-        login_button = WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable((By.ID, "loginbutton"))
-        )
-        login_button.click()
-        print("Bejelentkezes gombra kattintva!")
-    except:
-        print("Hiba a mezok vagy a gomb keresesekor.")
+        try:
+            cookie_button = WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'összes elfogadása')]"))
+            )
+            cookie_button.click()
+            print("Sutik elfogadva!")
+        except:
+            print("Nincs suti ablak vagy nem talalhato.")
 
-def verify_login(driver):
-    print("Bejelentkezes ellenorzese...")
-    try:
-        WebDriverWait(driver, 10).until(
-            EC.url_changes("https://www.messenger.com/")
-        )
-        print("Sikeres tovabblepes a bejelentkezo oldalrol!")
-    except:
-        print("Nem valtozott az URL, valoszinuleg hibasak a belepesi adatok (teszt).")
+        try:
+            email_field = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.ID, "email"))
+            )
+            email_field.send_keys(EMAIL)
+            print("Email beirva!")
+            
+            pass_field = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.ID, "pass"))
+            )
+            pass_field.send_keys(PASSWORD)
+            print("Jelszo beirva!")
+            
+            login_button = WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable((By.ID, "loginbutton"))
+            )
+            login_button.click()
+            print("Bejelentkezes gombra kattintva!")
+        except:
+            print("Hiba a mezok vagy a gomb keresesekor.")
+
+    def verify_login(self):
+        print("Bejelentkezes ellenorzese...")
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.url_changes("https://www.messenger.com/")
+            )
+            print("Sikeres tovabblepes a bejelentkezo oldalrol!")
+        except:
+            print("Nem valtozott az URL, valoszinuleg hibasak a belepesi adatok (teszt).")
+
+    def close(self):
+        self.driver.quit()
+        print("Bongeszo bezarva.")
 
 def main():
-    print("Bongeszo inditasa...")
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    driver.get("https://www.messenger.com/")
-    
-    login(driver)
-    verify_login(driver)
-    
-    driver.quit()
-    print("Bongeszo bezarva.")
+    bot = MessengerBot()
+    bot.login()
+    bot.verify_login()
+    bot.close()
 
 if __name__ == "__main__":
     main()
