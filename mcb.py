@@ -4,12 +4,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-EMAIL = "teszt.bercel@gmail.com"
-PASSWORD = "NagyonTitkosJelszo123"
-
 class MessengerBot:
-    def __init__(self):
+    def __init__(self, email, password):
         print("Bongeszo inditasa...")
+        self.email = email
+        self.password = password
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
 
@@ -29,13 +28,13 @@ class MessengerBot:
             email_field = WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.ID, "email"))
             )
-            email_field.send_keys(EMAIL)
+            email_field.send_keys(self.email)
             print("Email beirva!")
             
             pass_field = WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.ID, "pass"))
             )
-            pass_field.send_keys(PASSWORD)
+            pass_field.send_keys(self.password)
             print("Jelszo beirva!")
             
             login_button = WebDriverWait(self.driver, 5).until(
@@ -61,7 +60,7 @@ class MessengerBot:
         print("Bongeszo bezarva.")
 
 def main():
-    bot = MessengerBot()
+    bot = MessengerBot("teszt.bercel@gmail.com", "NagyonTitkosJelszo123")
     bot.login()
     bot.verify_login()
     bot.close()
