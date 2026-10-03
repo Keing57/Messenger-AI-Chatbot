@@ -60,10 +60,14 @@ class MessengerBot:
         print("Bongeszo bezarva.")
 
 def main():
-    bot = MessengerBot("teszt.bercel@gmail.com", "NagyonTitkosJelszo123")
-    bot.login()
-    bot.verify_login()
-    bot.close()
+    bot = None
+    try:
+        bot = MessengerBot("teszt.bercel@gmail.com", "NagyonTitkosJelszo123")
+        bot.login()
+        bot.verify_login()
+    finally:
+        if bot:
+            bot.close()
 
 if __name__ == "__main__":
     main()
