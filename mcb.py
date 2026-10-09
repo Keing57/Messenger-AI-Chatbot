@@ -3,14 +3,21 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 class MessengerBot:
-    def __init__(self, email, password):
+    def __init__(self, email, password, headless=False):
         print("Bongeszo inditasa...")
         self.email = email
         self.password = password
-        self.driver = webdriver.Chrome()
-        self.driver.maximize_window()
+        
+        chrome_options = Options()
+        if headless:
+            chrome_options.add_argument("--headless")
+            
+        self.driver = webdriver.Chrome(options=chrome_options)
+        if not headless:
+            self.driver.maximize_window()
 
     def login(self):
         self.driver.get("https://www.messenger.com/")
@@ -62,7 +69,7 @@ class MessengerBot:
 def main():
     bot = None
     try:
-        bot = MessengerBot("teszt.bercel@gmail.com", "NagyonTitkosJelszo123")
+        bot = MessengerBot("teszt.bercel@gmail.com", "NagyonTitkosJelszo123", headless=False)
         bot.login()
         bot.verify_login()
     finally:
