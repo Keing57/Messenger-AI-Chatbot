@@ -62,6 +62,16 @@ class MessengerBot:
         except:
             print("Nem valtozott az URL, valoszinuleg hibasak a belepesi adatok (teszt).")
 
+    def find_search_bar(self):
+        print("Keresosav felkutatasa...")
+        try:
+            search_input = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//input[@type='search']"))
+            )
+            print("Keresosav megvan!")
+        except:
+            print("Nem talalhato a keresosav.")
+
     def close(self):
         self.driver.quit()
         print("Bongeszo bezarva.")
@@ -72,6 +82,7 @@ def main():
         bot = MessengerBot("teszt.bercel@gmail.com", "NagyonTitkosJelszo123", headless=False)
         bot.login()
         bot.verify_login()
+        bot.find_search_bar()
     finally:
         if bot:
             bot.close()
