@@ -7,7 +7,6 @@ from selenium.webdriver.chrome.options import Options
 
 class MessengerBot:
     def __init__(self, email, password, headless=False):
-        print("Bongeszo inditasa...")
         self.email = email
         self.password = password
         
@@ -27,55 +26,55 @@ class MessengerBot:
                 EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'összes elfogadása')]"))
             )
             cookie_button.click()
-            print("Sutik elfogadva!")
         except:
-            print("Nincs suti ablak vagy nem talalhato.")
+            pass
 
         try:
             email_field = WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.ID, "email"))
             )
             email_field.send_keys(self.email)
-            print("Email beirva!")
             
             pass_field = WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.ID, "pass"))
             )
             pass_field.send_keys(self.password)
-            print("Jelszo beirva!")
             
             login_button = WebDriverWait(self.driver, 5).until(
                 EC.element_to_be_clickable((By.ID, "loginbutton"))
             )
             login_button.click()
-            print("Bejelentkezes gombra kattintva!")
         except:
-            print("Hiba a mezok vagy a gomb keresesekor.")
+            pass
 
     def verify_login(self):
-        print("Bejelentkezes ellenorzese...")
         try:
             WebDriverWait(self.driver, 10).until(
                 EC.url_changes("https://www.messenger.com/")
             )
-            print("Sikeres tovabblepes a bejelentkezo oldalrol!")
         except:
-            print("Nem valtozott az URL, valoszinuleg hibasak a belepesi adatok (teszt).")
+            pass
 
     def search_user(self, name):
-        print("Keresosav felkutatasa...")
         try:
             search_input = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, "//input[@type='search']"))
             )
             search_input.send_keys(name)
-            print("Nev beirva a keresobe!")
         except:
-            print("Nem talalhato a keresosav.")
+            pass
+
+    def select_first_result(self):
+        try:
+            first_result = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//div[@role='listbox']//div[@role='button']"))
+            )
+            first_result.click()
+        except:
+            pass
 
     def close(self):
         self.driver.quit()
-        print("Bongeszo bezarva.")
 
 def main():
     bot = None
@@ -84,6 +83,7 @@ def main():
         bot.login()
         bot.verify_login()
         bot.search_user("Teszt Elek")
+        bot.select_first_result()
         time.sleep(3)
     finally:
         if bot:
