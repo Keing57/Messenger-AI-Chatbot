@@ -1,6 +1,7 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
@@ -73,6 +74,17 @@ class MessengerBot:
         except:
             pass
 
+    def send_message(self, message):
+        try:
+            msg_box = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//div[@aria-label='Üzenet írása' and @role='textbox']"))
+            )
+            msg_box.send_keys(message)
+            time.sleep(1)
+            msg_box.send_keys(Keys.RETURN)
+        except:
+            pass
+
     def close(self):
         self.driver.quit()
 
@@ -84,7 +96,8 @@ def main():
         bot.verify_login()
         bot.search_user("Teszt Elek")
         bot.select_first_result()
-        time.sleep(3)
+        bot.send_message("Szia! Ez egy automatikus teszt uzenet a python bottol xd.")
+        time.sleep(5)
     finally:
         if bot:
             bot.close()
